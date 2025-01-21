@@ -36,6 +36,46 @@ CREATE TABLE users
 (
 id                  UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
 name                varchar(255)     NOT NULL,
-email         varchar(255)           NOT NULL,
+email               varchar(255)     NOT NULL,
 registration_date   date
+);
+
+
+/*
+Таблица "Orders" (Заказы):
+
+- OrderID (Основной ключ)
+- UserID (Внешний ключ)
+- OrderDate (Дата заказа)
+- Status (Статус)   
+*/
+
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders
+(
+id                  UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+user_id             UUID             NOT NULL,
+date                date,
+status              varchar(255)
+);
+
+
+/*
+Таблица "OrderDetails" (Детали заказа):
+
+- OrderDetailID (Основной ключ)
+- OrderID (Внешний ключ)
+- ProductID (Внешний ключ)
+- Quantity (Количество)
+- TotalCost (Общая стоимость)  
+*/
+
+DROP TABLE IF EXISTS order_details;
+CREATE TABLE order_details
+(
+id                  UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+order_id            UUID             NOT NULL,
+product_id          UUID             NOT NULL,
+quantity            BIGINT           NOT NULL,
+total_cost          money            NOT NULL
 );
