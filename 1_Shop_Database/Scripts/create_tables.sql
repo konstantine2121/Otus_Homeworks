@@ -20,3 +20,22 @@ description         varchar(255),
 price               money            NOT NULL,
 quantity_in_stock   BIGINT           NOT NULL
 );
+
+
+/*
+Таблица "Users" (Пользователи):
+
+- UserID (Основной ключ)
+- UserName (Имя пользователя)
+- Email (Электронная почта)
+- RegistrationDate (Дата регистрации)  
+*/
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users
+(
+id                  UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+name                varchar(255)     NOT NULL,
+email         varchar(255)           NOT NULL,
+registration_date   date
+);
