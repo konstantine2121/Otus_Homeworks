@@ -10,3 +10,4 @@
 
 ## Выполнение требуемых заросов
 
+[task_queries.sql](task_queries.sql)
