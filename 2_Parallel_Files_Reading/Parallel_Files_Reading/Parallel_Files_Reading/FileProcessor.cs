@@ -16,15 +16,13 @@ namespace Parallel_Files_Reading
                 ConsoleHelper.WriteLine($"{guid}  Begin processing file '{filepath}'", color);
             }
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
 
             var spaces = await SpaceCounter.CountAsync(filepath);
 
-            stopwatch.Stop();
 
             lock (_outputLock)
             {
-                ConsoleHelper.WriteLine($"{guid}  Result: '{spaces}' spaces. \t\tComplete in '{stopwatch.ElapsedMilliseconds}' ms", color);                
+                ConsoleHelper.WriteLine($"{guid}  Result: '{spaces}' spaces.", color);                
             }
         }
     }
