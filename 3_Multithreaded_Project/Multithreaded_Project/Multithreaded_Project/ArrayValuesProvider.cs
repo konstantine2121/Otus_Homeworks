@@ -14,9 +14,10 @@ namespace Multithreaded_Project
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
 
-            Values = GenerateValuesArray(count);
             MaxElementValue = maxElementValue;
             MaxElementValueExcluded = MaxElementValue + 1;
+
+            Values = GenerateValuesArray(count);
         }
 
         public IReadOnlyList<int> Values { get; } = new int[0];

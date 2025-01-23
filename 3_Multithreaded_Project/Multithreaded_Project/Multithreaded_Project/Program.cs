@@ -12,6 +12,7 @@ namespace Multithreaded_Project
 
             var master = new CalculationMaster();
             var synchronousCalculator = new SynchronousCalculator();
+            var linqCalculator = new LinqCalculator();
 
             var delimiter = "----------------------------------------";
 
@@ -26,10 +27,19 @@ namespace Multithreaded_Project
             var list3 = provider3.Values;
 
             Console.WriteLine("Генерация завершена");
+
             Console.WriteLine(delimiter);
+            
             master.Run(synchronousCalculator, list1, nameof(synchronousCalculator));
             master.Run(synchronousCalculator, list2, nameof(synchronousCalculator));
             master.Run(synchronousCalculator, list3, nameof(synchronousCalculator));
+            
+            Console.WriteLine(delimiter);
+
+            master.Run(linqCalculator, list1, nameof(linqCalculator));
+            master.Run(linqCalculator, list2, nameof(linqCalculator));
+            master.Run(linqCalculator, list3, nameof(linqCalculator));
+            
             Console.WriteLine(delimiter);
         }
     }

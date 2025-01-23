@@ -10,10 +10,12 @@ namespace Multithreaded_Project
             Console.WriteLine($"Начало вычислений '{calculatorName} ({values.Count})'");
 
             Stopwatch sw = Stopwatch.StartNew();
-            calculator.Sum(values);
+            var sum = calculator.Sum(values);
             sw.Stop();
 
             Console.WriteLine($"'{calculatorName} ({values.Count})' закончил за {sw.ElapsedMilliseconds} мс.");
+            Console.WriteLine($"Сумма = {sum}");
+            
             Console.WriteLine();
         }
     }
