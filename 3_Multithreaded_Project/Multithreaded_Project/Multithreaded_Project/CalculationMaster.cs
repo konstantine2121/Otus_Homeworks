@@ -9,8 +9,6 @@ namespace Multithreaded_Project
 
         public void Run(IArraySumCalculator calculator, IReadOnlyList<int> values, string calculatorName)
         {
-            Console.WriteLine($"Начало вычислений '{calculatorName} ({values.Count})'");
-
             Stopwatch sw = Stopwatch.StartNew();
             var sum = calculator.Sum(values);
             sw.Stop();

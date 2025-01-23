@@ -12,7 +12,8 @@ namespace Multithreaded_Project
 
             var master = new CalculationMaster();
             var synchronousCalculator = new SynchronousCalculator();
-            var linqCalculator = new LinqCalculator();
+            var linqParallelCalculator = new LinqParallelCalculator();
+            var threadCalculator = new ThreadCalculator();
 
             var delimiter = "----------------------------------------";
 
@@ -37,11 +38,20 @@ namespace Multithreaded_Project
             
             Console.WriteLine(delimiter);
 
-            master.Run(linqCalculator, list1, nameof(linqCalculator));
-            master.Run(linqCalculator, list2, nameof(linqCalculator));
-            master.Run(linqCalculator, list3, nameof(linqCalculator));
+            master.Run(linqParallelCalculator, list1, nameof(linqParallelCalculator));
+            master.Run(linqParallelCalculator, list2, nameof(linqParallelCalculator));
+            master.Run(linqParallelCalculator, list3, nameof(linqParallelCalculator));
             master.AddEmptyRecord();
             
+            Console.WriteLine(delimiter);
+
+            master.Run(threadCalculator, new ArrayValuesProvider(5200).Values, nameof(threadCalculator));
+
+            master.Run(threadCalculator, list1, nameof(threadCalculator));
+            master.Run(threadCalculator, list2, nameof(threadCalculator));
+            master.Run(threadCalculator, list3, nameof(threadCalculator));
+            master.AddEmptyRecord();
+
             Console.WriteLine(delimiter);
 
             master.PrintResults();
