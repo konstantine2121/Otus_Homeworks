@@ -5,59 +5,64 @@ namespace Multithreaded_Project.Calculators
     {
         public long Sum(IReadOnlyList<int> values)
         {
-            var slices = Slice(values.ToArray());
+            const int sliceSize = 1000;
+            const int numberOfWorkers = 10;
 
-            Dictionary<Thread, long> sliceMap  = new Dictionary<Thread, long>(slices.Count);
+            int beginIndex = 0;
 
-            foreach (var slice in slices) 
+            Stack<long> results = new Stack<long>();
+            Stack<Thread> workers = new Stack<Thread>();
+
+            for(int i= 0; i < numberOfWorkers; i++)
             {
-                Thread thread = new Thread(new ParameterizedThreadStart((th) => 
-                { 
-                    sliceMap[(Thread)th] = slice.Select(v => (long)v).Sum();
-                }));
+                Thread thread = new Thread(Work);
                 thread.IsBackground = true;
                 
-                sliceMap[thread] = 0;
-
-                thread.Start(thread);
+                workers.Push(thread);
+                thread.Start();
             }
 
-            foreach (var thread in sliceMap.Keys)
+            foreach (var thread in workers)
             {
                 thread.Join();
             }
 
-            return sliceMap.Values.Sum();
-        }
+            return results.Sum();
 
-        private IReadOnlyList<int[]> Slice(int[] values) 
-        {
-            const int sliceSize = 1000;
-            
-            int lastSliceSize = values.Length % sliceSize;
-            bool lastSliceLessThanOthers = lastSliceSize != 0;
-
-            int amountOfSlices = values.Length / sliceSize + (lastSliceLessThanOthers ? 1 : 0);
-
-            int lasts = lastSliceLessThanOthers ?
-                (amountOfSlices - 1) * sliceSize + lastSliceSize:
-                amountOfSlices * sliceSize;
-
-            List <int[]> slices = new List<int[]>(amountOfSlices);
-            
-            for (int i = 0; i < amountOfSlices; i++) 
+            void Work()
             {
-                int sourceIndex = i * sliceSize;                
-                int copyLength = Math.Min(sliceSize, lasts);
-                var array = new int[copyLength];
+                while (true)
+                {
+                    int index = 0;
+                    int end = 0;
 
-                Array.Copy(values, sourceIndex, array, 0, copyLength);
+                    lock (workers)
+                    {
+                        index = beginIndex;
+                        beginIndex += sliceSize;
+                    }
 
-                slices.Add(array);
-                lasts -= sliceSize;
+                    end = Math.Min(index + sliceSize, values.Count);
+
+                    if (index >= values.Count)
+                    {
+                        break;
+                    }
+
+                    long result = 0;
+
+                    for(int i = index; i < end; i++)
+                    {
+                        result += values[i];
+                    }
+
+                    lock (results)
+                    {
+                        results.Push(result);
+                    }
+                }
             }
-
-            return slices;
         }
+
     }
 }

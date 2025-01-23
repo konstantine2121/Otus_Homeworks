@@ -35,17 +35,8 @@ namespace Multithreaded_Project
             master.Run(synchronousCalculator, list2, nameof(synchronousCalculator));
             master.Run(synchronousCalculator, list3, nameof(synchronousCalculator));
             master.AddEmptyRecord();
-            
+                        
             Console.WriteLine(delimiter);
-
-            master.Run(linqParallelCalculator, list1, nameof(linqParallelCalculator));
-            master.Run(linqParallelCalculator, list2, nameof(linqParallelCalculator));
-            master.Run(linqParallelCalculator, list3, nameof(linqParallelCalculator));
-            master.AddEmptyRecord();
-            
-            Console.WriteLine(delimiter);
-
-            master.Run(threadCalculator, new ArrayValuesProvider(5200).Values, nameof(threadCalculator));
 
             master.Run(threadCalculator, list1, nameof(threadCalculator));
             master.Run(threadCalculator, list2, nameof(threadCalculator));
@@ -53,6 +44,11 @@ namespace Multithreaded_Project
             master.AddEmptyRecord();
 
             Console.WriteLine(delimiter);
+
+            master.Run(linqParallelCalculator, list1, nameof(linqParallelCalculator));
+            master.Run(linqParallelCalculator, list2, nameof(linqParallelCalculator));
+            master.Run(linqParallelCalculator, list3, nameof(linqParallelCalculator));
+            master.AddEmptyRecord();
 
             master.PrintResults();
         }
