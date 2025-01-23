@@ -2,7 +2,7 @@
 {
     internal class SpaceCounter
     {
-        public static async Task<int> Count(string filepath)
+        public static async Task<int> CountAsync(string filepath)
         {
             const char space = ' ';
             int total = 0;
