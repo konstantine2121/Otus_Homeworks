@@ -1,5 +1,9 @@
 ﻿namespace Pattern_Prototype.Subjects
 {
+    /// <summary>
+    /// Самый базовый класс для всех живых существ.<br/>
+    /// Имеет <see cref="Alive">признак</see>  жив/мертв а также <see cref="Age">возраст</see>.
+    /// </summary>
     public class Creature : IMyCloneable<Creature>, ICloneable
     {
         public Creature(bool alive, int age)

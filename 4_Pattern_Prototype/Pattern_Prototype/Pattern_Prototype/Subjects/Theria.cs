@@ -1,7 +1,9 @@
 ﻿namespace Pattern_Prototype.Subjects
 {
     /// <summary>
-    /// Живородящие
+    /// Живородящие <br/>
+    /// Является наследником <see cref="Animal">животного</see><br/>
+    /// Добавляется свойство <see cref="GrowthPeriod">время созревания плода</see>
     /// </summary>
     public class Theria : Animal, IMyCloneable<Theria>
     {

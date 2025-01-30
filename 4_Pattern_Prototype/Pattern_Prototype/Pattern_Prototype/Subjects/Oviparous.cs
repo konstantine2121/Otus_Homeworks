@@ -1,7 +1,10 @@
 ﻿namespace Pattern_Prototype.Subjects
 {
+
     /// <summary>
-    /// Яйцекладущие
+    /// Яйцекладущие <br/>
+    /// Является наследником <see cref="Animal">животного</see><br/>
+    /// Добавляется свойство <see cref="AmountOfEggs">количество откладываемых яиц</see>
     /// </summary>
     public class Oviparous : Animal, IMyCloneable<Oviparous>
     {

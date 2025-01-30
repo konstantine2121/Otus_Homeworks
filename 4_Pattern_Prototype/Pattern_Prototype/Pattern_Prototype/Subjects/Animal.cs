@@ -1,5 +1,10 @@
 ﻿namespace Pattern_Prototype.Subjects
 {
+    /// <summary>
+    /// Является наследником живого <see cref="Creature">существа</see><br/>
+    /// Добавляется свойство <see cref="Gender">пол</see> 
+    /// (<see cref="Gender.Male">мужской</see>/<see cref="Gender.Female">женский</see>)
+    /// </summary>
     public class Animal : Creature, IMyCloneable<Animal>
     {
         public Animal(bool alive, int age, Gender gender) : base(alive, age)
