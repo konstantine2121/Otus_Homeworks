@@ -24,16 +24,16 @@ namespace Pattern_Prototype.Factories
 
         public IReadOnlyList<Type> SupportedTypes => _factoriesMap.Keys.ToArray();
 
-        public Creature Create<T>() where T : Creature
+        public T Create<T>() where T : Creature
         {
             var type = typeof(T);
 
-            return Create(type);
+            return Create(type) as T;
         }
 
         public Creature Create(Type type)
         {
-            if (_factoriesMap.ContainsKey(type))
+            if (!_factoriesMap.ContainsKey(type))
             {
                 throw new ArgumentException($"Can't create {type.FullName}");
             }
