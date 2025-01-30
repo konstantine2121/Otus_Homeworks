@@ -32,7 +32,7 @@
 
         #region Clone
 
-        Theria IMyCloneable<Theria>.Clone()
+        public override Theria CloneMe()
         {
             return new Theria(this);
         }

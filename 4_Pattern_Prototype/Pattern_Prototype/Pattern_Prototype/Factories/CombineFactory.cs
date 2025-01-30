@@ -49,4 +49,55 @@ namespace Pattern_Prototype.Factories
             return Create(type);
         }
     }
+
+    internal static class CombineFactoryExtensions
+    {
+        public static List<Creature> CreateCreaturesList(this CombineCreatureFactory combineFactory, int amount = 10)
+        {
+            var subjects = new List<Creature>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                subjects.Add(combineFactory.Create<Creature>());
+            }
+
+            return subjects;
+        }
+
+        public static List<Animal> CreateAnimalsList(this CombineCreatureFactory combineFactory, int amount = 10)
+        {
+            var subjects = new List<Animal>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                subjects.Add(combineFactory.Create<Animal>());
+            }
+
+            return subjects;
+        }
+
+        public static List<Oviparous> CreateOviparousList(this CombineCreatureFactory combineFactory, int amount = 10)
+        {
+            var subjects = new List<Oviparous>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                subjects.Add(combineFactory.Create<Oviparous>());
+            }
+
+            return subjects;
+        }
+
+        public static List<Theria> CreateTheriaList(this CombineCreatureFactory combineFactory, int amount = 10)
+        {
+            var subjects = new List<Theria>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                subjects.Add(combineFactory.Create<Theria>());
+            }
+
+            return subjects;
+        }
+    }
 }

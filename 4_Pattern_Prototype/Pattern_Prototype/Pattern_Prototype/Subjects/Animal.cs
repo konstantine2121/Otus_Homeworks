@@ -29,7 +29,7 @@
 
         #region Clone
 
-        Animal IMyCloneable<Animal>.Clone()
+        public override Animal CloneMe()
         {
             return new Animal(this);
         }

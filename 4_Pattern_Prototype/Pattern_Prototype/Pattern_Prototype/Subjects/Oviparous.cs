@@ -33,7 +33,7 @@
 
         #region Clone
 
-        Oviparous IMyCloneable<Oviparous>.Clone()
+        public override Oviparous CloneMe()
         {
             return new Oviparous(this);
         }

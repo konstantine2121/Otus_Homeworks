@@ -32,7 +32,7 @@
 
         #region Clone
 
-        Creature IMyCloneable<Creature>.Clone()
+        public virtual Creature CloneMe()
         {
             return new Creature(this);
         }

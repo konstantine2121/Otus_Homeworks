@@ -5,7 +5,7 @@
 
     public interface IMyCloneable<T>
     {
-        T Clone();
+        T CloneMe();//Чтобы не совпадало по сигнатуре с ICloneable
     }
 
 
