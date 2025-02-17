@@ -1,10 +1,10 @@
 ﻿namespace Guess_Game
 {
-    class ValueGenerator
+    class RandomGenerator : IRandomGenerator
     {
         private readonly Random _random = new Random();
 
-        public ValueGenerator(Range range)
+        public RandomGenerator(Range range)
         {
 
             int start = range.Start.Value;

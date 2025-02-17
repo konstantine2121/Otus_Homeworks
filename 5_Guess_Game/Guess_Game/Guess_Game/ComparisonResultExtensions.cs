@@ -2,6 +2,7 @@
 {
     public static class ComparisonResultExtensions
     {
+        /// <param name="delta"> результат вызова <see cref="int.CompareTo(int)"/></param>
         public static ComparisonResult FromInt(int delta)
         {
             if (delta < 0)

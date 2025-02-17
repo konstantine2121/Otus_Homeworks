@@ -4,9 +4,9 @@ namespace Guess_Game
 {
     class Game : IDisposable
     {
-        private ValueGenerator _generator;
+        private IRandomGenerator _generator;
 
-        public Game(ValueGenerator valueGenerator, int attemptsToWin)
+        public Game(IRandomGenerator valueGenerator, int attemptsToWin)
         {
             _generator = valueGenerator ?? throw new ArgumentNullException(nameof(valueGenerator));
             AttemptsToWin = attemptsToWin;
@@ -99,11 +99,6 @@ namespace Guess_Game
         }
 
         #endregion SingleTurn
-
-        public void EndGame()
-        {
-
-        }
 
         public void Dispose()
         {
