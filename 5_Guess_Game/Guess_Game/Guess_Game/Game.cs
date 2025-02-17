@@ -2,7 +2,7 @@
 
 namespace Guess_Game
 {
-    class Game : IDisposable
+    class Game : IGame
     {
         private IRandomGenerator _generator;
 
