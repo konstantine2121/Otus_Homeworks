@@ -8,8 +8,8 @@ namespace Reflection
         {
             ISerializer serializer = new CsvSerializer();
 
-            F f = new F() 
-            { 
+            F f = new F()
+            {
                 i1 = 1,
                 i2 = 2,
                 i3 = 3,
@@ -18,15 +18,24 @@ namespace Reflection
             };
 
             Console.WriteLine(serializer.Serialize(f));
+        }
+
+        //Not used
+        public void RunAnonymousTypes()
+        {
+            ISerializer serializer = new CsvSerializer();
+
 
             //1996 	Jeep 	Grand Cherokee 	MUST SELL! air, moon roof, loaded 	4799
 
-            var smth1 = new { 
-                Year = 1996, 
-                Brand = "Jeep", 
-                Model = "Grand Cherokee", 
-                Note= "Grand Cherokee \tMUST SELL! air, moon roof, loaded", 
-                Price = 4799 };
+            var smth1 = new
+            {
+                Year = 1996,
+                Brand = "Jeep",
+                Model = "Grand Cherokee",
+                Note = "Grand Cherokee \tMUST SELL! air, moon roof, loaded",
+                Price = 4799
+            };
 
             Console.WriteLine(serializer.Serialize(smth1));
 
