@@ -1,14 +1,15 @@
 ﻿using Guess_Game.ConsoleUtils;
+using Guess_Game.Factories;
 
-namespace Guess_Game
+namespace Guess_Game.Core
 {
     internal class GameController
     {
         private readonly IGame _game;
 
-        public GameController(IGame game) 
+        public GameController(IGameFactory gameFactory)
         {
-            _game = game;
+            _game = gameFactory.Create(ReadUserInput);
 
             _game.NewGameStarted += OnGameStarted;
             _game.GameFinished += OnGameFinished;
@@ -16,35 +17,15 @@ namespace Guess_Game
             _game.TurnFinished += OnTurnFinished;
         }
 
-        
-        public void Start() 
+        public void Start()
         {
             _game.StartNewGame();
         }
 
-        #region Event handlers
-
-        private void OnGameFinished(object? sender, bool win)
+        private int ReadUserInput()
         {
-            PrintGameFinishedMessage(win);
+            return Input.ReadInteger($"Введите число [{_game.MinNumber}, {_game.MaxNumber}]: ");
         }
-
-        private void OnGameStarted(object? sender, EventArgs e)
-        {
-            PrintGameWelcomeMessage();
-        }
-
-        private void OnTurnStarted(object? sender, int e)
-        {
-            PrintTurnWelcomeMessage();
-        }
-
-        private void OnTurnFinished(object? sender, ComparisonResult result)
-        {
-            PrintTurnResult(result);
-        }
-
-        #endregion
 
         #region Messages
 
@@ -90,5 +71,29 @@ namespace Guess_Game
         }
 
         #endregion Messages
+
+        #region Event handlers
+
+        private void OnGameFinished(object? sender, bool win)
+        {
+            PrintGameFinishedMessage(win);
+        }
+
+        private void OnGameStarted(object? sender, EventArgs e)
+        {
+            PrintGameWelcomeMessage();
+        }
+
+        private void OnTurnStarted(object? sender, int e)
+        {
+            PrintTurnWelcomeMessage();
+        }
+
+        private void OnTurnFinished(object? sender, ComparisonResult result)
+        {
+            PrintTurnResult(result);
+        }
+
+        #endregion
     }
 }

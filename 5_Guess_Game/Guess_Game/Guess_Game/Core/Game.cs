@@ -1,22 +1,29 @@
-﻿using Guess_Game.ConsoleUtils;
+﻿using Guess_Game.Generators;
 
-namespace Guess_Game
+namespace Guess_Game.Core
 {
     class Game : IGame
     {
         private IRandomGenerator _generator;
 
-        public Game(IRandomGenerator valueGenerator, int attemptsToWin)
+        public Game(IRandomGenerator valueGenerator, int attemptsToWin, Func<int> readUserGuessFunc)
         {
             _generator = valueGenerator ?? throw new ArgumentNullException(nameof(valueGenerator));
             AttemptsToWin = attemptsToWin;
+            ReadUserGuess = readUserGuessFunc ?? throw new ArgumentNullException(nameof(readUserGuessFunc));
         }
 
         public int AttemptsToWin { get; }
-        
+
         public int AttemptCounter { get; private set; } = 0;
 
         public int NumberToGuess { get; private set; }
+
+        public int MinNumber => _generator.Min;
+
+        public int MaxNumber => _generator.Max;
+
+        public Func<int> ReadUserGuess { get; }
 
         public event EventHandler NewGameStarted;
         public event EventHandler<bool> GameFinished;
@@ -43,31 +50,18 @@ namespace Guess_Game
             GameFinished?.Invoke(this, win);
         }
 
-        #region SingleTurn
-
         private bool PerformTurn()
         {
             AttemptCounter++;
 
             TurnStarted?.Invoke(this, AttemptCounter);
-            
-            int number = ReadUserInput();
-            var result = ResultComparer.Compare(number, NumberToGuess);            
+
+            int number = ReadUserGuess();
+            var result = ResultComparer.Compare(number, NumberToGuess);
             TurnFinished?.Invoke(this, result);
 
             return result == ComparisonResult.Equal;
         }
-
-        
-
-        private int ReadUserInput()
-        {
-            return Input.ReadInteger($"Введите число [{_generator.Min}, {_generator.Max}]: ");
-        }
-
-       
-
-        #endregion SingleTurn
 
         public void Dispose()
         {

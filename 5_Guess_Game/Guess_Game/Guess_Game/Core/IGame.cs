@@ -1,4 +1,4 @@
-﻿namespace Guess_Game
+﻿namespace Guess_Game.Core
 {
     internal interface IGame : IDisposable
     {
@@ -7,6 +7,10 @@
         int AttemptCounter { get; }
 
         int NumberToGuess { get; }
+
+        int MinNumber { get; }
+
+        int MaxNumber { get; }
 
         event EventHandler NewGameStarted;
         event EventHandler<bool> GameFinished;

@@ -1,4 +1,4 @@
-﻿namespace Guess_Game
+﻿namespace Guess_Game.Generators
 {
     class RandomGenerator : IRandomGenerator
     {
