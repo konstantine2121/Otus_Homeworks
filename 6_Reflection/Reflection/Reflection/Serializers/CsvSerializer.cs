@@ -30,13 +30,12 @@ namespace Reflection.Serializers
             }
 
             var fieldInfos = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-            var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
-
             var fieldValues = fieldInfos
                 .Select(x => x.GetValue(obj)?.ToString() ?? string.Empty)
                 .Select(HandleReserved)
                 .ToArray();
 
+            var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             var propertyValues = propertyInfos
                 .Select(x => x.GetValue(obj)?.ToString() ?? string.Empty)
                 .Select(HandleReserved)
