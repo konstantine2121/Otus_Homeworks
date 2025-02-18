@@ -5,7 +5,9 @@
         static void Main(string[] args)
         {
             var runner = new SerializationRunner();
-            runner.Run();
+            runner.RunMy();
+            runner.RunNewtonsoft();
+
         }
     }
 }

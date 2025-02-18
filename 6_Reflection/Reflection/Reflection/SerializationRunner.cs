@@ -1,10 +1,12 @@
 ﻿using Reflection.Serializers;
+using Newtonsoft.Json;
+
 
 namespace Reflection
 {
     internal class SerializationRunner
     {
-        public void Run()
+        public void RunMy()
         {
             ISerializer serializer = new CsvSerializer();
 
@@ -17,7 +19,26 @@ namespace Reflection
                 i5 = 5,
             };
 
-            Console.WriteLine(serializer.Serialize(f));
+            Console.WriteLine("My " + serializer.Serialize(f));
+        }
+
+        public void RunNewtonsoft() 
+        {
+            F f = new F()
+            {
+                i1 = 1,
+                i2 = 2,
+                i3 = 3,
+                i4 = 4,
+                i5 = 5,
+            };
+
+            JsonSerializer serializer = new JsonSerializer();
+            StringWriter sw = new StringWriter();
+            serializer.Serialize(sw, f);
+
+            Console.WriteLine("Newtonsoft " + sw.ToString());
+
         }
 
         //Not used
