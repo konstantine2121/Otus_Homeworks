@@ -1,17 +1,18 @@
-﻿using System.Reflection;
+﻿using System.Linq;
+using System.Reflection;
 
 namespace Reflection.Serializers
 {
-    internal class CsvSerializer : ISerializer
+    public class CsvSerializer : ISerializer
     {
         public const string Separator = ",";
 
         /// <summary>
         /// двойная кавычка, запятая, точка с запятой, новая строка
         /// </summary>
-        public static readonly IReadOnlySet<string> ReservedChars = new HashSet<string>()
+        public static readonly IReadOnlySet<char> ReservedSymbols = new HashSet<char>()
         {
-            "\"", ",", ";", "\r\n"
+            '\"', ',', ';', '\n'
         };
 
         public string Serialize(object obj)
@@ -29,13 +30,21 @@ namespace Reflection.Serializers
             }
 
             var fieldInfos = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            var propertyInfos = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
 
             var fieldValues = fieldInfos
                 .Select(x => x.GetValue(obj)?.ToString() ?? string.Empty)
                 .Select(HandleReserved)
                 .ToArray();
 
-            return string.Join(Separator, fieldValues);
+            var propertyValues = propertyInfos
+                .Select(x => x.GetValue(obj)?.ToString() ?? string.Empty)
+                .Select(HandleReserved)
+                .ToArray();
+
+            var all = fieldValues.Concat(propertyValues);
+
+            return string.Join(Separator, all);
         }
 
         /// <summary>
@@ -43,21 +52,21 @@ namespace Reflection.Serializers
         /// </summary>
         private static string HandleReserved(string value)
         {
-            string result = value;
-
-            foreach (var r in ReservedChars)
+            if (string.IsNullOrWhiteSpace(value))
             {
-                if (r == "\"")
-                {
-                    //символ двойной кавычки в поле должен быть удвоен
-                    result = result.Replace(r, "\"\"");
-                }
-                else
-                {
-                    //если поле содержит запятые, переносы строк, двойные кавычки, то это поле должно быть заключено в двойные кавычки.
-                    //Если этого не сделать, то данные невозможно будет корректно обработать
-                    result = result.Replace(r, $"\"{r}\"");
-                }
+                return value;
+            }
+
+            string result = value;
+                        
+            //Cимвол двойной кавычки в поле должен быть удвоен.
+            result = result.Replace("\"", "\"\"");
+
+            //Если поле содержит запятые, переносы строк, двойные кавычки, то это поле должно быть заключено в двойные кавычки.
+            //Если этого не сделать, то данные невозможно будет корректно обработать
+            if (result.Any(ReservedSymbols.Contains))
+            {
+                result = "\"" + result + "\"";
             }
 
             return result;
