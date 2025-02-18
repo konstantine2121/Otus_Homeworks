@@ -18,13 +18,18 @@ namespace Guess_Game
 
         public int NumberToGuess { get; private set; }
 
+        public event EventHandler NewGameStarted;
+        public event EventHandler<bool> GameFinished;
+        public event EventHandler<int> TurnStarted;
+        public event EventHandler<ComparisonResult> TurnFinished;
+
         public void StartNewGame()
         {
             AttemptCounter = 0;
             bool win = false;
             NumberToGuess = _generator.Generate();
 
-            PrintGameWelcomeMessage();
+            NewGameStarted?.Invoke(this, EventArgs.Empty);
 
             for (int i = 0; i < AttemptsToWin; i++)
             {
@@ -35,27 +40,7 @@ namespace Guess_Game
                 }
             }
 
-            PrintEndgameMessage(win);
-        }
-
-        private void PrintGameWelcomeMessage()
-        {
-            Output.PrintMessage(ConsoleColor.Green, $"Игра началась. Доступно {AttemptsToWin} попыток");
-        }
-
-        private void PrintEndgameMessage(bool win)
-        {
-            Output.PrintWarning("");
-
-            if (win)
-            {
-                Output.PrintInfo($"Победа! Вы отгадали число!");
-            }
-            else
-            {
-                Output.PrintError($"Поражение. Вы истратили все доступные попытки ({AttemptsToWin}).");
-                Output.PrintWarning($"Загаданное число = {NumberToGuess}");
-            }
+            GameFinished?.Invoke(this, win);
         }
 
         #region SingleTurn
@@ -64,39 +49,23 @@ namespace Guess_Game
         {
             AttemptCounter++;
 
-            PrintTurnWelcomeMessage();
+            TurnStarted?.Invoke(this, AttemptCounter);
+            
             int number = ReadUserInput();
-            var result = ResultComparer.Compare(number, NumberToGuess);
-            PrintTurnResult(result);
+            var result = ResultComparer.Compare(number, NumberToGuess);            
+            TurnFinished?.Invoke(this, result);
 
             return result == ComparisonResult.Equal;
         }
 
-        private void PrintTurnWelcomeMessage()
-        {
-            Output.PrintMessage(ConsoleColor.Gray, "Попытка # " + AttemptCounter);
-        }
+        
 
         private int ReadUserInput()
         {
             return Input.ReadInteger($"Введите число [{_generator.Min}, {_generator.Max}]: ");
         }
 
-        private void PrintTurnResult(ComparisonResult result)
-        {
-            switch(result)
-            {
-                case ComparisonResult.Equal:
-                    Output.PrintMessage(ConsoleColor.Cyan, "Вы угадали!");
-                    break;
-                case ComparisonResult.Less:
-                    Output.PrintMessage(ConsoleColor.Blue, "меньше");
-                    break;
-                case ComparisonResult.Greater:
-                    Output.PrintMessage(ConsoleColor.Red, "больше");
-                    break;
-            }
-        }
+       
 
         #endregion SingleTurn
 
