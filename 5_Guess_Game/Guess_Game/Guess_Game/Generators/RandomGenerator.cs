@@ -22,7 +22,7 @@
         public int Min { get; }
         public int Max { get; }
 
-        public int Generate()
+        public virtual int Generate()
         {
             return _random.Next(Min, Max + 1);
         }
