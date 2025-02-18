@@ -1,4 +1,6 @@
-﻿namespace Guess_Game
+﻿using Guess_Game.Core;
+
+namespace Guess_Game
 {
     internal static class ResultComparer
     {

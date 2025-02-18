@@ -1,4 +1,4 @@
-﻿namespace Guess_Game
+﻿namespace Guess_Game.Core
 {
     /// <summary>
     /// Совместим с результатом <see cref="int.CompareTo(int)"/>
