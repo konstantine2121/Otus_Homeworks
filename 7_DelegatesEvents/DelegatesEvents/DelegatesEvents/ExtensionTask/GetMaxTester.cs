@@ -1,7 +1,7 @@
-﻿using DelegatesEvents.Shapes;
-using DelegatesEvents.Shapes.ShapesFactories;
+﻿using DelegatesEvents.ExtensionTask.Shapes;
+using DelegatesEvents.ExtensionTask.Shapes.ShapesFactories;
 
-namespace DelegatesEvents
+namespace DelegatesEvents.ExtensionTask
 {
     internal class GetMaxTester
     {
@@ -17,7 +17,7 @@ namespace DelegatesEvents
             var factory = new CircleFactory();
             var circles = new List<Circle>();
 
-            for (int i = 0; i < 10; i++) 
+            for (int i = 0; i < 10; i++)
             {
                 circles.Add(factory.Create());
             }

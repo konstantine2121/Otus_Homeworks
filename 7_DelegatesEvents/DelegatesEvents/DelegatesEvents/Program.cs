@@ -1,4 +1,6 @@
-﻿namespace DelegatesEvents
+﻿using DelegatesEvents.ExtensionTask;
+
+namespace DelegatesEvents
 {
     internal class Program
     {

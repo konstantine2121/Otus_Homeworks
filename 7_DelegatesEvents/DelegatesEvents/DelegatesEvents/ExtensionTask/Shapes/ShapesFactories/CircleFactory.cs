@@ -1,4 +1,4 @@
-﻿namespace DelegatesEvents.Shapes.ShapesFactories
+﻿namespace DelegatesEvents.ExtensionTask.Shapes.ShapesFactories
 {
     internal class CircleFactory : IFactory<Circle>
     {

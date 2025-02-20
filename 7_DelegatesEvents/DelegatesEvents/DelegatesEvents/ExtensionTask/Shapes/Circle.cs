@@ -1,4 +1,4 @@
-﻿namespace DelegatesEvents.Shapes
+﻿namespace DelegatesEvents.ExtensionTask.Shapes
 {
     internal class Circle : Shape
     {

@@ -1,6 +1,6 @@
-﻿using DelegatesEvents.Shapes;
+﻿using DelegatesEvents.ExtensionTask.Shapes;
 
-namespace DelegatesEvents
+namespace DelegatesEvents.ExtensionTask
 {
     internal static class Printer
     {

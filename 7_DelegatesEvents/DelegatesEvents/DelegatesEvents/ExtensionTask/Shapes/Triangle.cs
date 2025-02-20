@@ -1,8 +1,8 @@
-﻿namespace DelegatesEvents.Shapes
+﻿namespace DelegatesEvents.ExtensionTask.Shapes
 {
     internal class Triangle : Shape
     {
-        public Triangle(float a, float b, float c) 
+        public Triangle(float a, float b, float c)
         {
             A = a;
             B = b;

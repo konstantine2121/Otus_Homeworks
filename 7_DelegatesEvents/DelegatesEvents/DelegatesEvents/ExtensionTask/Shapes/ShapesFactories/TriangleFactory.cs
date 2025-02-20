@@ -1,4 +1,4 @@
-﻿namespace DelegatesEvents.Shapes.ShapesFactories
+﻿namespace DelegatesEvents.ExtensionTask.Shapes.ShapesFactories
 {
     internal class TriangleFactory : IFactory<Triangle>
     {
@@ -6,9 +6,9 @@
         {
             var a = GetSide();
             var b = GetSide();
-            var c =  MathF.Max(
-                Random.Shared.NextSingle() * (a+b),
-                MathF.Abs(a-b)+0.3f);
+            var c = MathF.Max(
+                Random.Shared.NextSingle() * (a + b),
+                MathF.Abs(a - b) + 0.3f);
 
             return new Triangle(a, b, c);
         }
